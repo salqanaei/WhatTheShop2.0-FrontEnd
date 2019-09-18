@@ -3,6 +3,7 @@ import { createStackNavigator } from "react-navigation-stack";
 // Components
 import ProfileScreen from "../components/Profile";
 import LoginScreen from "../components/Login";
+import ListScreen from "../components/List";
 
 const ProfileStack = createStackNavigator(
   {
