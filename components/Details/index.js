@@ -1,71 +1,60 @@
 import React, { Component } from "react";
 import { observer } from "mobx-react";
+import guitarStore from "../../stores/guitarStore";
+
+// Style
+import styles from "./styles";
 
 // NativeBase Components
 import {
-  Thumbnail,
+  Container,
+  Header,
+  Content,
+  Card,
+  CardItem,
   Text,
-  Button,
+  Right,
   Left,
   Body,
-  Right,
-  List,
-  ListItem,
-  Picker,
-  Content
+  Button
 } from "native-base";
-
+import { Image } from "react-native";
 class Details extends Component {
   render() {
-    const coffeeshop = this.props.navigation.getParam("shop", {});
+    const { navigation } = this.props;
+    //const navigation = this.props.navigation
+    const { guitars } = guitarStore;
+    // const cafes = coffeeStore.cafes;
+    if (!guitars) return <Content />;
+    const guitarID = navigation.getParam("guitarID");
+    const guitar = guitars.find(guitar => guitar.id === guitarID);
     return (
-      <Content>
-        <List>
-          <ListItem style={styles.top}>
-            <Left>
-              <Text style={styles.text}>
-                {coffeeshop.name + "\n"}
-                <Text note>{coffeeshop.location}</Text>
-              </Text>
-            </Left>
-            <Body />
-            <Right>
-              <Thumbnail bordered source={{ uri: coffeeshop.img }} />
-            </Right>
-          </ListItem>
-          <ListItem style={{ borderBottomWidth: 0 }}>
-            <Left>
-              <Picker
-                note
-                mode="dropdown"
-                style={{ width: 150 }}
-                selectedValue={this.state.drink}
-                onValueChange={this.changeDrink}
-              >
-                <Picker.Item label="Cappuccino" value="Cappuccino" />
-                <Picker.Item label="Latte" value="Latte" />
-                <Picker.Item label="Espresso" value="Espresso" />
-              </Picker>
-            </Left>
-            <Body>
-              <Picker
-                note
-                mode="dropdown"
-                style={{ width: 150 }}
-                selectedValue={this.state.option}
-                onValueChange={this.changeOption}
-              >
-                <Picker.Item label="Small" value="Small" />
-                <Picker.Item label="Medium" value="Medium" />
-                <Picker.Item label="Large" value="Large" />
-              </Picker>
-            </Body>
-          </ListItem>
-          <Button full danger onPress={this.handleAdd}>
-            <Text>Add</Text>
-          </Button>
-        </List>
-      </Content>
+      <Container>
+        <Header />
+        <Content>
+          <Card>
+            <CardItem>
+              <Body>
+                <Text style={styles.text}>{guitar.item}</Text>
+              </Body>
+            </CardItem>
+            <CardItem cardBody>
+              <Image
+                source={{ uri: guitar.image }}
+                style={{ height: 250, width: null, flex: 1 }}
+              />
+            </CardItem>
+
+            <CardItem>
+              <Left>
+                <Button>
+                  <Text>KD: {guitar.price}</Text>
+                </Button>
+              </Left>
+            </CardItem>
+          </Card>
+        </Content>
+      </Container>
     );
   }
 }
