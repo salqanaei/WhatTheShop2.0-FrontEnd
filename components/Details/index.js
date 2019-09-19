@@ -20,14 +20,17 @@ import {
 } from "native-base";
 import { Image } from "react-native";
 class Details extends Component {
+  state = {
+    guitar: null
+  };
+  async componentDidMount() {
+    const guitarID = this.props.navigation.getParam("guitarID");
+    await guitarStore.fetchGuitarDetail(guitarID);
+    this.setState({ guitar: guitarStore.guitar });
+  }
+
   render() {
-    const { navigation } = this.props;
-    //const navigation = this.props.navigation
-    const { guitars } = guitarStore;
-    // const cafes = coffeeStore.cafes;
-    if (!guitars) return <Content />;
-    const guitarID = navigation.getParam("guitarID");
-    const guitar = guitars.find(guitar => guitar.id === guitarID);
+    if (!this.state.guitar) return <Text>Loading</Text>;
     return (
       <Container>
         <Header />
@@ -35,12 +38,12 @@ class Details extends Component {
           <Card>
             <CardItem>
               <Body>
-                <Text style={styles.text}>{guitar.item}</Text>
+                <Text style={styles.text}>{this.state.guitar.item}</Text>
               </Body>
             </CardItem>
             <CardItem cardBody>
               <Image
-                source={{ uri: guitar.image }}
+                source={{ uri: this.state.guitar.image }}
                 style={{ height: 250, width: null, flex: 1 }}
               />
             </CardItem>
@@ -48,7 +51,7 @@ class Details extends Component {
             <CardItem>
               <Left>
                 <Button>
-                  <Text>KD: {guitar.price}</Text>
+                  <Text>KD: {this.state.guitar.price}</Text>
                 </Button>
               </Left>
             </CardItem>

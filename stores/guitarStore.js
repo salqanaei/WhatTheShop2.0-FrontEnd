@@ -8,7 +8,7 @@ class GuitarStore {
 
   fetchAllGuitars = async () => {
     try {
-      const res = await axios.get("http://127.0.0.1:8000/product-list/");
+      const res = await axios.get("http://127.0.0.1:8000/product/");
       let guitars = res.data;
       this.guitars = guitars;
       this.loading = false;
@@ -16,13 +16,17 @@ class GuitarStore {
       console.error(err);
     }
   };
-  fetchGuitarDetail = async () => {
+  fetchGuitarDetail = async product_id => {
+    if (this.guitar) {
+      if (this.guitar.id === product_id) {
+        return;
+      }
+    }
     try {
       const res = await axios.get(
-        "http://127.0.0.1:8000/product-detail/<int:product_id>/"
+        `http://127.0.0.1:8000/product/${product_id}/`
       );
-      let guitars = res.data;
-      this.guitars = guitars;
+      this.guitar = res.data;
       this.loading = false;
     } catch (err) {
       console.error(err);
