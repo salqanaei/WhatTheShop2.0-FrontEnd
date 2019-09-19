@@ -33,9 +33,15 @@ class Login extends Component {
         </Item>
         <Button
           full
-          onPress={() => alert("You need to implement Login noob...")}
+          onPress={() => authStore.login(this.state, this.props.navigation)}
         >
           <Text>Login</Text>
+        </Button>
+        <Button
+          full
+          onPress={() => authStore.register(this.state, this.props.navigation)}
+        >
+          <Text>Register</Text>
         </Button>
       </Form>
     );

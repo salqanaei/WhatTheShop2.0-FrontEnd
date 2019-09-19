@@ -3,15 +3,16 @@ import { createStackNavigator } from "react-navigation-stack";
 // Components
 import ProfileScreen from "../components/Profile";
 import LoginScreen from "../components/Login";
-import ListScreen from "../components/List";
+import List from "../components/List";
 
 const ProfileStack = createStackNavigator(
   {
     Profile: ProfileScreen,
-    Login: LoginScreen
+    Login: LoginScreen,
+    ListScreen: List
   },
   {
-    initialRouteName: "Profile",
+    initialRouteName: "Login",
     defaultNavigationOptions: {
       title: "WhatTheShop"
     }
