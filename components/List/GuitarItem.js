@@ -23,7 +23,7 @@ import { withNavigation } from "react-navigation";
 class GuitarItem extends Component {
   handlePress = () => {
     this.props.navigation.navigate("DetailScreen", {
-      guitarID: this.props.guitarList
+      guitarID: this.props.guitar.id
     });
   };
 
