@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { observer } from "mobx-react";
+import LogoutButton from "../LogoutButton";
 
 // NativeBase Components
 import { List, Content, Spinner } from "native-base";
@@ -25,5 +26,8 @@ class GuitarList extends Component {
     );
   }
 }
-
+GuitarList.navigationOptions = {
+  title: "GuitarHub",
+  headerRight: <LogoutButton />
+};
 export default observer(GuitarList);
