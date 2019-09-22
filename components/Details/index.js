@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { observer } from "mobx-react";
 import guitarStore from "../../stores/guitarStore";
+import cartStore from "../../stores/cartStore";
 
 // Style
 import styles from "./styles";
@@ -33,7 +34,6 @@ class Details extends Component {
     if (!this.state.guitar) return <Text>Loading</Text>;
     return (
       <Container>
-        <Header />
         <Content>
           <Card>
             <CardItem>
@@ -50,7 +50,9 @@ class Details extends Component {
 
             <CardItem>
               <Left>
-                <Button>
+                <Button
+                  onPress={() => cartStore.addItemToCart(this.state.guitar.id)}
+                >
                   <Text>KD: {this.state.guitar.price}</Text>
                 </Button>
               </Left>

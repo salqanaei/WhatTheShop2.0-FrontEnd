@@ -9,7 +9,7 @@ import guitarStore from "../../stores/guitarStore";
 
 // Component
 import GuitarItem from "./GuitarItem";
-// import CartButton from "../CartButton";
+import CartButton from "../Cart/CartButton";
 
 class GuitarList extends Component {
   render() {
@@ -25,5 +25,9 @@ class GuitarList extends Component {
     );
   }
 }
+GuitarList.navigationOptions = {
+  title: "Coffee List",
+  headerRight: <CartButton />
+};
 
 export default observer(GuitarList);
