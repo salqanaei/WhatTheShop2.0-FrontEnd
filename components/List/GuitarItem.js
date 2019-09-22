@@ -30,10 +30,6 @@ class GuitarItem extends Component {
   render() {
     const { guitar } = this.props;
     return (
-      //  <ImageBackground
-      //   source={{ uri: guitar.background }}
-      // style={styles.background}
-      //>
       <ListItem button onPress={this.handlePress} style={styles.listitem}>
         <Card style={styles.transparent}>
           <CardItem style={styles.transparent}>
@@ -53,7 +49,6 @@ class GuitarItem extends Component {
           </CardItem>
         </Card>
       </ListItem>
-      // {/* </ImageBackground> */}
     );
   }
 }
