@@ -17,6 +17,7 @@ import {
 import authStore from "../../stores/authStore";
 import profileStore from "../../stores/profileStore";
 import { withNavigation } from "react-navigation";
+import PastOrderItems from "./PastOrderItems";
 
 class Profile extends Component {
   async componentDidMount() {
@@ -24,7 +25,6 @@ class Profile extends Component {
       await profileStore.fetchProfile();
     }
   }
-
   render() {
     if (!authStore.user) {
       this.props.navigation.replace("Login");
@@ -32,11 +32,31 @@ class Profile extends Component {
     if (profileStore.loading) {
       return <Spinner />;
     }
+    let cartItems;
+    console.log("PROFILE", profileStore.profile[0].past_orders);
+    if (profileStore.profile[0].past_orders.length > 0) {
+      cartItems = profileStore.profile[0].past_orders.map(pastOrder => (
+        <>
+          <Text>Order</Text>
+          <List>
+            {pastOrder.cart_items.map(item => (
+              <PastOrderItems key={item.id} pastOrderItem={item} />
+            ))}
+          </List>
+        </>
+      ));
+    } else {
+      cartItems = <Text>You have no previous orders.</Text>;
+      console.log("Empty cart", cartItems);
+    }
     return (
-      <Text style={{ fontWeight: "bold", fontSize: 40 }}>
-        {profileStore.profile[0].user.first_name}{" "}
-        {profileStore.profile[0].user.last_name}
-      </Text>
+      <>
+        <Text style={{ fontWeight: "bold", fontSize: 40 }}>
+          {profileStore.profile[0].user.first_name}{" "}
+          {profileStore.profile[0].user.last_name}
+        </Text>
+        {cartItems}
+      </>
     );
   }
 }
