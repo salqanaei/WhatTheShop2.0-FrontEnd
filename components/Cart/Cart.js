@@ -13,9 +13,10 @@ import authStore from "../../stores/authStore";
 import { withNavigation } from "react-navigation";
 
 class Cart extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     if (authStore.user) {
-      cartStore.fetchCart();
+      await cartStore.fetchCart();
+      await cartStore.FetchCartItems();
     }
   }
   render() {
@@ -24,15 +25,28 @@ class Cart extends Component {
     }
 
     if (!cartStore.loading) {
-      cartItems = cartStore.cart[0].cart_items.map(item => (
-        <CartItem cart={item} key={item.product} />
+      cartItems = cartStore.items.map(item => (
+        <CartItem cart={item} key={item.id} />
       ));
       return (
         <>
-          <List>{cartItems}</List>
-          <Text style={{ color: "green", fontWeight: "bold", marginLeft: 35 }}>
-            Subtotal: KD {cartStore.cart[0].subtotal}
-          </Text>
+          <List>
+            {cartItems}
+            <Text
+              style={{ color: "Black", fontWeight: "bold", marginLeft: 175 }}
+            >
+              Subtotal: KD {cartStore.subTotal}
+            </Text>
+            <Button
+              rounded
+              danger
+              onPress={() => cartStore.checkoutCart(this.props.navigation)}
+            >
+              <Text style={{ fontWeight: "bold", marginLeft: 150 }}>
+                Checkout
+              </Text>
+            </Button>
+          </List>
         </>
       );
     } else {
