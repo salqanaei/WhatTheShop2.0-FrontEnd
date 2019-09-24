@@ -6,20 +6,6 @@ class CartStore {
   cart = null;
   loading = true;
 
-  //   addItemToCart = newItemID => {
-  //     const foundItem = this.items.find(item => newItemID === item.id);
-  //     if (foundItem) foundItem.quantity += newItem.quantity;
-  //     else this.items.push(newItem);
-  //   };
-
-  //   removeItemFromCart = itemToDelete =>
-  //     (this.items = this.items.filter(item => item !== itemToDelete));
-
-  //   checkoutCart = () => {
-  //     this.items = [];
-  //     alert("Thank you for ordering.");
-  //   };
-
   fetchCart = async () => {
     try {
       const res = await axios.get("http://127.0.0.1:8000/cart/");

@@ -17,10 +17,7 @@ const CartItem = ({ cart }) => {
   return (
     <ListItem style={{ borderBottomWidth: 0 }}>
       <Left>
-        <Text style={{ color: "black", marginLeft: 16 }}>
-          {" "}
-          {cart.product_name}{" "}
-        </Text>
+        <Text style={{ color: "black", marginLeft: 16 }}> {cart.item} </Text>
         <Text note style={{ marginLeft: 16 }}>
           Quantity: {cart.quantity}
         </Text>
