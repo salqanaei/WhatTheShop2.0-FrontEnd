@@ -7,6 +7,7 @@ class CartStore {
   products = [];
   loading = true;
 
+
   FetchCartItems = async () => {
     try {
       const res = await axios.get("http://127.0.0.1:8000/cartitem/");
@@ -70,6 +71,7 @@ class CartStore {
       console.error(err);
     }
   };
+
 
   fetchCart = async () => {
     try {
