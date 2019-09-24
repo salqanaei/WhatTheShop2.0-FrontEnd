@@ -26,7 +26,7 @@ class GuitarList extends Component {
   }
 }
 GuitarList.navigationOptions = {
-  title: "Coffee List",
+  title: "Shop",
   headerRight: <CartButton />
 };
 
