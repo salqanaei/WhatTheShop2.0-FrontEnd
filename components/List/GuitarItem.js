@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ImageBackground, View } from "react-native";
+import { ImageBackground, View, Image, TouchableOpacity } from "react-native";
 
 // NativeBase Components
 import {
@@ -11,7 +11,11 @@ import {
   Left,
   Right,
   Header,
-  Body
+  Body,
+  Container,
+  Content,
+  Button,
+  Icon
 } from "native-base";
 
 // Style
@@ -30,25 +34,37 @@ class GuitarItem extends Component {
   render() {
     const { guitar } = this.props;
     return (
-      <ListItem button onPress={this.handlePress} style={styles.listitem}>
-        <Card style={styles.transparent}>
-          <CardItem style={styles.transparent}>
-            <Header>
-              <Thumbnail
-                bordered
+      <TouchableOpacity onPress={() => this.handlePress()}>
+        <Content>
+          <Card>
+            <CardItem button={true} onPress={this.handlePress}>
+              <Left>
+                <Thumbnail source={{ uri: "Image URL" }} />
+                <Body>
+                  <Text style={styles.text}>{guitar.item}</Text>
+                  <Text note>{guitar.manufacturer}</Text>
+                </Body>
+              </Left>
+            </CardItem>
+            <CardItem cardBody>
+              <Image
                 source={{ uri: guitar.image }}
-                style={styles.thumbnail}
+                style={{ height: 200, width: null, flex: 1 }}
+                button={true}
+                onPress={this.handlePress}
               />
-            </Header>
-            <Header>
-              <Text style={styles.text}>{guitar.item}</Text>
-            </Header>
-            <Text note style={styles.text}>
-              {guitar.price}
-            </Text>
-          </CardItem>
-        </Card>
-      </ListItem>
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Button transparent>
+                  <Icon type="Entypo" name="price-tag" />
+                  <Text>{guitar.price}</Text>
+                </Button>
+              </Left>
+            </CardItem>
+          </Card>
+        </Content>
+      </TouchableOpacity>
     );
   }
 }
