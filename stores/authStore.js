@@ -30,7 +30,7 @@ class AuthStore {
       const res = await instance.post("/login/", userData);
       const user = res.data;
       await this.setUser(user.access);
-      navigation.replace("ListScreen");
+      navigation.replace("Profile");
     } catch (err) {
       console.log("something went wrong logging in");
     }
@@ -41,7 +41,7 @@ class AuthStore {
       const res = await instance.post("register/", userData);
       const user = res.data;
       await this.setUser(user.access);
-      navigation.replace("ListScreen");
+      navigation.replace("Profile");
     } catch (err) {
       console.error(err);
     }
@@ -49,7 +49,7 @@ class AuthStore {
 
   logout = async navigation => {
     await this.setUser();
-    navigation.navigate("Login");
+    navigation.replace("Login");
   };
 
   checkForToken = async () => {
