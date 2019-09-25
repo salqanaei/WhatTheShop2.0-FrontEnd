@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NumericInput from "react-native-numeric-input";
+import { observer } from "mobx-react";
 
 // NativeBase Components
 import {
@@ -66,4 +67,4 @@ class CartItem extends Component {
   }
 }
 
-export default CartItem;
+export default observer(CartItem);
