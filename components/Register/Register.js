@@ -8,10 +8,12 @@ import { Form, Item, Input, Button, Text } from "native-base";
 // Store
 import authStore from "../../stores/authStore";
 
-class Login extends Component {
+class Register extends Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    first_name: "",
+    last_name: ""
   };
 
   render() {
@@ -32,17 +34,29 @@ class Login extends Component {
             onChangeText={password => this.setState({ password })}
           />
         </Item>
+        <Item last>
+          <Input
+            placeholder="First Name"
+            autoCapitalize="none"
+            onChangeText={first_name => this.setState({ first_name })}
+          />
+        </Item>
+        <Item last>
+          <Input
+            placeholder="Last Name"
+            autoCapitalize="none"
+            onChangeText={last_name => this.setState({ last_name })}
+          />
+        </Item>
+
         <Button
           full
-          onPress={() => authStore.login(this.state, this.props.navigation)}
+          onPress={() => authStore.register(this.state, this.props.navigation)}
         >
-          <Text>Login</Text>
-        </Button>
-        <Button full onPress={() => this.props.navigation.navigate("Register")}>
           <Text>Register</Text>
         </Button>
       </Form>
     );
   }
 }
-export default withNavigation(observer(Login));
+export default withNavigation(observer(Register));
