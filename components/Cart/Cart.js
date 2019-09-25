@@ -16,16 +16,17 @@ class Cart extends Component {
   async componentDidMount() {
     if (authStore.user) {
       await cartStore.fetchCart();
-      await cartStore.FetchCartItems();
     }
   }
   render() {
     if (!authStore.user) {
       this.props.navigation.navigate("Login");
     }
-
+    if (cartStore.cart.length == 0) {
+      return <Text>Cart is Empty</Text>;
+    }
     if (!cartStore.loading) {
-      cartItems = cartStore.items.map(item => (
+      cartItems = cartStore.cart[0].cart_items.map(item => (
         <CartItem cart={item} key={item.id} />
       ));
       return (

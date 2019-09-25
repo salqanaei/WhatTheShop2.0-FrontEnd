@@ -1,15 +1,38 @@
 import React from "react";
 import { withNavigation } from "react-navigation";
-import { Button, Icon, Text } from "native-base";
+import { Button, Icon, Text, Badge, View } from "native-base";
 import { observer } from "mobx-react";
 import cartStore from "../../stores/cartStore";
 
 const CartButton = ({ navigation }) => {
   return (
-    <Button transparent onPress={() => navigation.navigate("Cart")}>
-      <Text style={{ color: "black" }}>{cartStore.quantity}</Text>
-      <Icon name="shoppingcart" type="AntDesign" />
-    </Button>
+    <View>
+      <Button dark transparent onPress={() => navigation.navigate("Cart")}>
+        <View
+          style={{
+            position: "absolute",
+            left: 8,
+            top: 2,
+            width: 15,
+            height: 13,
+            backgroundColor: "red",
+            borderRadius: 15
+          }}
+        >
+          <Text
+            style={{
+              color: "white",
+              textAlign: "center",
+              fontSize: 10,
+              fontWeight: "bold"
+            }}
+          >
+            {cartStore.quantity}
+          </Text>
+        </View>
+        <Icon name="shoppingcart" type="AntDesign"></Icon>
+      </Button>
+    </View>
   );
 };
 

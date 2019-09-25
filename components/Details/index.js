@@ -3,7 +3,8 @@ import { observer } from "mobx-react";
 import guitarStore from "../../stores/guitarStore";
 import cartStore from "../../stores/cartStore";
 import NumericInput from "react-native-numeric-input";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
+import Sound from "./Sound";
 
 // Style
 import styles from "./styles";
@@ -20,7 +21,8 @@ import {
   Left,
   Body,
   Button,
-  Center
+  Center,
+  Icon
 } from "native-base";
 
 class Details extends Component {
@@ -31,6 +33,7 @@ class Details extends Component {
 
     quantity: 1
   };
+
   async componentDidMount() {
     const guitarID = this.props.navigation.getParam("guitarID");
     await guitarStore.fetchGuitarDetail(guitarID);
@@ -40,7 +43,7 @@ class Details extends Component {
   render() {
     if (!this.state.guitar) return <Text>Loading</Text>;
     return (
-      <Container>
+      <Container style={{ flex: 1 }}>
         <Content>
           <Card>
             <CardItem>
@@ -63,45 +66,57 @@ class Details extends Component {
           </Card>
           <View
             style={{
-              alignItems: "center",
-              flexDirection: "column",
-              justifyContent: "space-between"
+              flex: 1,
+              flexDirection: "column reverse",
+              alignItems: "center"
             }}
           >
-            <NumericInput
-              value={this.state.value}
-              onChange={value => {
-                this.setState({ quantity: value });
+            <View>
+              <Sound guitar={this.state.guitar} key={this.state.guitar.id} />
+            </View>
+            <View
+              style={{
+                height: 250,
+                width: 300,
+                flex: 1,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "flex-end"
               }}
-              totalWidth={200}
-              totalHeight={50}
-              iconSize={20}
-              step={1}
-              minValue={1}
-              initValue={1}
-              valueType="real"
-              rounded
-              textColor="#023D7E"
-              iconStyle={{ color: "white" }}
-              rightButtonBackgroundColor="#023D7E"
-              leftButtonBackgroundColor="#7DB3EE"
-            />
-
-            <Button
-              rounded
-              info
-              onPress={() =>
-                cartStore.addItemToCart(
-                  {
+            >
+              <NumericInput
+                value={this.state.value}
+                onChange={value => {
+                  this.setState({ quantity: value });
+                }}
+                totalWidth={150}
+                totalHeight={48}
+                iconSize={15}
+                step={1}
+                minValue={1}
+                initValue={1}
+                valueType="real"
+                rounded
+                type="up-down"
+                textColor="#023D7E"
+                iconStyle={{ color: "black" }}
+                rightButtonBackgroundColor="white"
+                leftButtonBackgroundColor="white"
+              />
+              <Button
+                iconLeft
+                primary
+                onPress={() => {
+                  cartStore.addItemToCart({
                     product: this.state.product,
                     quantity: this.state.quantity
-                  },
-                  this.props.navigation
-                )
-              }
-            >
-              <Text>Add To Cart</Text>
-            </Button>
+                  });
+                }}
+              >
+                <Icon name="cart-plus" type="FontAwesome" />
+                <Text>Add To Cart</Text>
+              </Button>
+            </View>
           </View>
         </Content>
       </Container>

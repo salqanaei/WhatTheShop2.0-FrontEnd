@@ -5,6 +5,7 @@ import { observer } from "mobx-react";
 import { List, Content, Spinner } from "native-base";
 
 // Store
+import authStore from "../../stores/authStore";
 import guitarStore from "../../stores/guitarStore";
 
 // Component
