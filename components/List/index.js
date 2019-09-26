@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { observer } from "mobx-react";
+import { ImageBackground } from "react-native";
 
 // NativeBase Components
-import { List, Content, Spinner } from "native-base";
+import { List, Content, Spinner, Text } from "native-base";
 
 // Store
 import authStore from "../../stores/authStore";
@@ -20,14 +21,22 @@ class GuitarList extends Component {
     ));
 
     return (
-      <Content>
-        <List>{guitarList}</List>
-      </Content>
+      <ImageBackground
+        source={require("../../../WhatTheShop2.0-FrontEnd/string-store-bk.png")}
+        style={{
+          width: 500,
+          height: 800
+        }}
+      >
+        <Content>
+          <List>{guitarList}</List>
+        </Content>
+      </ImageBackground>
     );
   }
 }
 GuitarList.navigationOptions = {
-  title: "Shop",
+  title: "String Store",
   headerRight: <CartButton />
 };
 

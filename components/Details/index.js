@@ -3,7 +3,13 @@ import { observer } from "mobx-react";
 import guitarStore from "../../stores/guitarStore";
 import cartStore from "../../stores/cartStore";
 import NumericInput from "react-native-numeric-input";
-import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  TouchableOpacity,
+  ImageBackground
+} from "react-native";
 import Sound from "./Sound";
 
 // Style
@@ -12,7 +18,6 @@ import styles from "./styles";
 // NativeBase Components
 import {
   Container,
-  Header,
   Content,
   Card,
   CardItem,
@@ -21,19 +26,15 @@ import {
   Left,
   Body,
   Button,
-  Center,
   Icon
 } from "native-base";
 
 class Details extends Component {
   state = {
     guitar: null,
-
     product: this.props.navigation.getParam("guitarID"),
-
     quantity: 1
   };
-
   async componentDidMount() {
     const guitarID = this.props.navigation.getParam("guitarID");
     await guitarStore.fetchGuitarDetail(guitarID);
@@ -42,83 +43,130 @@ class Details extends Component {
 
   render() {
     if (!this.state.guitar) return <Text>Loading</Text>;
+    console.log(this.state.guitar);
+
     return (
       <Container style={{ flex: 1 }}>
-        <Content>
-          <Card>
-            <CardItem>
-              <Body>
-                <Text style={styles.text}>{this.state.guitar.item}</Text>
-              </Body>
-            </CardItem>
-            <CardItem cardBody>
-              <Image
-                source={{ uri: this.state.guitar.image }}
-                style={{ height: 250, width: null, flex: 1 }}
-              />
-            </CardItem>
-
-            <CardItem>
-              <Left>
-                <Text>KD: {this.state.guitar.price}</Text>
-              </Left>
-            </CardItem>
-          </Card>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "column reverse",
-              alignItems: "center"
-            }}
-          >
-            <View>
-              <Sound guitar={this.state.guitar} key={this.state.guitar.id} />
-            </View>
-            <View
+        <ImageBackground
+          source={require("../../../WhatTheShop2.0-FrontEnd/string-store-bk.png")}
+          style={{
+            width: 500,
+            height: 800
+          }}
+        >
+          <Content>
+            <Card
               style={{
-                height: 250,
-                width: 300,
-                flex: 1,
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "flex-end"
+                width: 400,
+                height: 350,
+                marginLeft: 7,
+                borderRadius: 20,
+                shadowOpacity: 500,
+                shadowColor: "black",
+                borderTopLeftRadius: 15,
+                borderTopRightRadius: 15
               }}
             >
-              <NumericInput
-                value={this.state.value}
-                onChange={value => {
-                  this.setState({ quantity: value });
-                }}
-                totalWidth={150}
-                totalHeight={48}
-                iconSize={15}
-                step={1}
-                minValue={1}
-                initValue={1}
-                valueType="real"
-                rounded
-                type="up-down"
-                textColor="#023D7E"
-                iconStyle={{ color: "black" }}
-                rightButtonBackgroundColor="white"
-                leftButtonBackgroundColor="white"
-              />
-              <Button
-                iconLeft
-                primary
-                onPress={() => {
-                  cartStore.addItemToCart({
-                    product: this.state.product,
-                    quantity: this.state.quantity
-                  });
+              <CardItem
+                header
+                bordered
+                style={{ borderTopLeftRadius: 15, borderTopRightRadius: 15 }}
+              >
+                <Body>
+                  <Text style={styles.text}>{this.state.guitar.item}</Text>
+                </Body>
+                <Text note>{this.state.guitar.manufacturer}</Text>
+              </CardItem>
+              <CardItem cardBody>
+                <Image
+                  source={{ uri: this.state.guitar.image }}
+                  style={{ height: 200, width: null, flex: 1 }}
+                />
+              </CardItem>
+              <CardItem>
+                <Left>
+                  <Button transparent>
+                    <Icon type="Entypo" name="price-tag" />
+                    <Text>{this.state.guitar.price}</Text>
+                  </Button>
+                </Left>
+                <Right>
+                  <Sound
+                    guitar={this.state.guitar}
+                    key={this.state.guitar.id}
+                  />
+                </Right>
+              </CardItem>
+            </Card>
+            <Content>
+              <Card
+                style={{
+                  width: 400,
+                  marginLeft: 7,
+                  borderRadius: 20,
+                  shadowOpacity: 500,
+                  shadowColor: "black"
                 }}
               >
-                <Icon name="cart-plus" type="FontAwesome" />
-                <Text>Add To Cart</Text>
-              </Button>
-            </View>
-          </View>
-        </Content>
+                <CardItem style={{ borderRadius: 20 }}>
+                  <Body>
+                    <Text>{this.state.guitar.description}</Text>
+                  </Body>
+                </CardItem>
+              </Card>
+            </Content>
+            <Content>
+              <Card
+                style={{
+                  width: 400,
+                  marginLeft: 7,
+                  borderRadius: 20,
+                  shadowOpacity: 500,
+                  shadowColor: "black",
+                  marginTop: 200
+                }}
+              >
+                <CardItem style={{ borderRadius: 20 }}>
+                  <NumericInput
+                    value={this.state.value}
+                    onChange={value => {
+                      this.setState({ quantity: value });
+                    }}
+                    totalWidth={150}
+                    totalHeight={48}
+                    iconSize={15}
+                    step={1}
+                    minValue={1}
+                    initValue={1}
+                    valueType="real"
+                    rounded
+                    type="up-down"
+                    textColor="#023D7E"
+                    iconStyle={{ color: "black" }}
+                    rightButtonBackgroundColor="white"
+                    leftButtonBackgroundColor="white"
+                  />
+                  <CardItem>
+                    <Button
+                      style={{ width: 150, alignContent: "right" }}
+                      iconLeft
+                      primary
+                      onPress={() => {
+                        cartStore.addItemToCart({
+                          product: this.state.product,
+                          quantity: this.state.quantity
+                        });
+                      }}
+                    >
+                      <Icon name="cart-plus" type="FontAwesome" />
+                      <Text>Add To Cart</Text>
+                    </Button>
+                  </CardItem>
+                </CardItem>
+              </Card>
+            </Content>
+          </Content>
+        </ImageBackground>
       </Container>
     );
   }
