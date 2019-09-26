@@ -3,6 +3,7 @@ import { withNavigation } from "react-navigation";
 import { Button, Icon, Text, Badge, View } from "native-base";
 import { observer } from "mobx-react";
 import cartStore from "../../stores/cartStore";
+import authStore from "../../stores/authStore";
 
 const CartButton = ({ navigation }) => {
   return (
@@ -11,8 +12,12 @@ const CartButton = ({ navigation }) => {
         dark
         transparent
         onPress={() => {
-          navigation.navigate("Cart");
-          cartStore.fetchCart();
+          if (!authStore.user) {
+            navigation.navigate("Login");
+          } else {
+            navigation.navigate("Cart");
+            cartStore.fetchCart();
+          }
         }}
       >
         <View
