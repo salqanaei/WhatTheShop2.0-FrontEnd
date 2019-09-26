@@ -37,14 +37,36 @@ class GuitarItem extends Component {
     return (
       <TouchableOpacity onPress={() => this.handlePress()}>
         <Content>
-          <Card>
-            <CardItem button={true} onPress={this.handlePress}>
+          <Card
+            style={{
+              width: 400,
+              height: 360,
+              borderRadius: 20,
+              shadowOpacity: 500,
+              shadowColor: "black",
+              marginLeft: 7
+            }}
+          >
+            <CardItem
+              header
+              bordered
+              style={{ borderTopLeftRadius: 15, borderTopRightRadius: 15 }}
+              button={true}
+              onPress={this.handlePress}
+            >
               <Left>
-                <Thumbnail source={{ uri: "Image URL" }} />
                 <Body>
-                  <Text style={styles.text}>{guitar.item}</Text>
-                  <Text note>{guitar.manufacturer}</Text>
+                  <Text
+                    style={{
+                      fontFamily: "Verdana",
+                      fontWeight: "bold",
+                      fontSize: 25
+                    }}
+                  >
+                    {guitar.item}
+                  </Text>
                 </Body>
+                <Text note>{guitar.manufacturer}</Text>
               </Left>
             </CardItem>
             <CardItem cardBody>
