@@ -22,8 +22,10 @@ import {
   Body,
   Button,
   Center,
-  Icon
+  Icon,
+  Toast
 } from "native-base";
+import CartButton from "../Cart/CartButton";
 
 class Details extends Component {
   state = {
@@ -107,9 +109,19 @@ class Details extends Component {
                 iconLeft
                 primary
                 onPress={() => {
+                  cartStore.postItemToCart({
+                    product: this.state.product,
+                    quantity: this.state.quantity
+                  });
                   cartStore.addItemToCart({
                     product: this.state.product,
                     quantity: this.state.quantity
+                  });
+                  Toast.show({
+                    text: "Item Added",
+                    buttonText: "Okay",
+                    position: "bottom",
+                    type: "success"
                   });
                 }}
               >
@@ -123,5 +135,10 @@ class Details extends Component {
     );
   }
 }
-
+Details.navigationOptions = ({ navigation }) => {
+  return {
+    title: navigation.getParam("name"),
+    headerRight: <CartButton />
+  };
+};
 export default observer(Details);

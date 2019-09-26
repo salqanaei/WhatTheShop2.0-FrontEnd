@@ -17,6 +17,7 @@ class Review extends Component {
     if (authStore.user) {
       await cartStore.FetchReviewItems();
     }
+    console.log("Review", cartStore.products);
   }
   render() {
     if (!authStore.user) {
@@ -27,13 +28,23 @@ class Review extends Component {
       reviewItems = cartStore.products.map(item => (
         <ReviewItems review={item} key={item.id} />
       ));
-      console.log("review", reviewItems);
+      console.log("Review", reviewItems);
+
       return (
         <>
           <List>{reviewItems}</List>
           <Text style={{ color: "black", fontWeight: "bold", marginLeft: 80 }}>
             Subtotal: KD {cartStore.reviewSubTotal}
           </Text>
+          <Button
+            rounded
+            danger
+            onPress={() => cartStore.placeOrder(this.props.navigation)}
+          >
+            <Text style={{ fontWeight: "bold", marginLeft: 150 }}>
+              Place Order
+            </Text>
+          </Button>
         </>
       );
     } else {

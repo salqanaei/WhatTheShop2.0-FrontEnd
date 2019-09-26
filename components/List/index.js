@@ -13,6 +13,12 @@ import GuitarItem from "./GuitarItem";
 import CartButton from "../Cart/CartButton";
 
 class GuitarList extends Component {
+  async componentDidMount() {
+    if (authStore.user) {
+      await cartStore.fetchCart();
+      await cartStore.FetchCartItems();
+    }
+  }
   render() {
     if (guitarStore.loading) return <Spinner />;
     let guitarList = guitarStore.guitars.map(guitar => (
