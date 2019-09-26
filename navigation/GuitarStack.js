@@ -6,6 +6,7 @@ import Details from "../components/Details";
 import Cart from "../components/Cart/Cart";
 import Login from "../components/Login";
 import ReviewOrder from "../components/ReviewOrder";
+import ProfileScreen from "../components/Profile";
 
 const GuitarStack = createStackNavigator(
   {
@@ -13,7 +14,8 @@ const GuitarStack = createStackNavigator(
     DetailScreen: Details,
     Cart: Cart,
     Login: Login,
-    Review: ReviewOrder
+    Review: ReviewOrder,
+    Profile: ProfileScreen
   },
   {
     defaultNavigationOptions: {
