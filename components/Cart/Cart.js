@@ -11,6 +11,7 @@ import CartItem from "./CartItem";
 import cartStore from "../../stores/cartStore";
 import authStore from "../../stores/authStore";
 import { withNavigation } from "react-navigation";
+import CartButton from "./CartButton";
 
 class Cart extends Component {
   async componentDidMount() {
@@ -22,19 +23,18 @@ class Cart extends Component {
     if (!authStore.user) {
       this.props.navigation.navigate("Login");
     }
-    if (cartStore.cart.length == 0) {
-      return <Text>Cart is Empty</Text>;
-    }
+
     if (!cartStore.loading) {
-      cartItems = cartStore.cart[0].cart_items.map(item => (
-        <CartItem cart={item} key={item.id} />
+      cartItems = cartStore.items.map(item => (
+        <CartItem cart={item} key={item.item} />
       ));
+
       return (
         <>
           <List>
             {cartItems}
             <Text
-              style={{ color: "Black", fontWeight: "bold", marginLeft: 175 }}
+              style={{ color: "black", fontWeight: "bold", marginLeft: 175 }}
             >
               Subtotal: KD {cartStore.subTotal}
             </Text>
@@ -55,4 +55,7 @@ class Cart extends Component {
     }
   }
 }
+Cart.navigationOptions = {
+  title: "Your Cart"
+};
 export default withNavigation(observer(Cart));

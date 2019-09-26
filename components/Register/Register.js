@@ -51,7 +51,10 @@ class Register extends Component {
 
         <Button
           full
-          onPress={() => authStore.register(this.state, this.props.navigation)}
+          onPress={() => {
+            authStore.register(this.state, this.props.navigation);
+            console.log("Register", this.state);
+          }}
         >
           <Text>Register</Text>
         </Button>

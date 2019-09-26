@@ -26,8 +26,15 @@ import {
   Left,
   Body,
   Button,
-  Icon
+
+  Icon,
+
+  Center,
+  Icon,
+  Toast
+
 } from "native-base";
+import CartButton from "../Cart/CartButton";
 
 class Details extends Component {
   state = {
@@ -124,8 +131,8 @@ class Details extends Component {
                   shadowOpacity: 500,
                   shadowColor: "black",
                   marginTop: 200
-                }}
-              >
+              />
+           
                 <CardItem style={{ borderRadius: 20 }}>
                   <NumericInput
                     value={this.state.value}
@@ -147,17 +154,26 @@ class Details extends Component {
                     leftButtonBackgroundColor="white"
                   />
                   <CardItem>
-                    <Button
-                      style={{ width: 150, alignContent: "right" }}
-                      iconLeft
-                      primary
-                      onPress={() => {
-                        cartStore.addItemToCart({
-                          product: this.state.product,
-                          quantity: this.state.quantity
-                        });
-                      }}
-                    >
+                       <Button
+                iconLeft
+                primary
+                onPress={() => {
+                  cartStore.postItemToCart({
+                    product: this.state.product,
+                    quantity: this.state.quantity
+                  });
+                  cartStore.addItemToCart({
+                    product: this.state.product,
+                    quantity: this.state.quantity
+                  });
+                  Toast.show({
+                    text: "Item Added",
+                    buttonText: "Okay",
+                    position: "bottom",
+                    type: "success"
+                  });
+                }}
+              >
                       <Icon name="cart-plus" type="FontAwesome" />
                       <Text>Add To Cart</Text>
                     </Button>
@@ -171,5 +187,10 @@ class Details extends Component {
     );
   }
 }
-
+Details.navigationOptions = ({ navigation }) => {
+  return {
+    title: navigation.getParam("name"),
+    headerRight: <CartButton />
+  };
+};
 export default observer(Details);

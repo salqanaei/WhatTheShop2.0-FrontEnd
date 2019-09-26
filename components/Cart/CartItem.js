@@ -22,7 +22,12 @@ class CartItem extends Component {
 
   onChange = value => {
     this.setState({ quantity: value });
-    cartStore.cartUpdate(this.state, this.props.cart.id, this.props.cart);
+    if (value == 0) {
+      cartStore.removeItemFromCart(this.props.cart, this.props.cart.id);
+    } else {
+      cartStore.cartAddition(this.state, this.props.cart.id, this.props.cart);
+      cartStore.cartUpdateBE(this.state, this.props.cart.id);
+    }
   };
 
   render() {

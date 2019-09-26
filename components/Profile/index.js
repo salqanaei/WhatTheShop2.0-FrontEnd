@@ -47,7 +47,6 @@ class Profile extends Component {
       ));
     } else {
       cartItems = <Text>You have no previous orders.</Text>;
-      console.log("Empty cart", cartItems);
     }
     return (
       <>
