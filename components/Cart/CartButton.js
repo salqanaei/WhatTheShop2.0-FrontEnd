@@ -7,7 +7,14 @@ import cartStore from "../../stores/cartStore";
 const CartButton = ({ navigation }) => {
   return (
     <View>
-      <Button dark transparent onPress={() => navigation.navigate("Cart")}>
+      <Button
+        dark
+        transparent
+        onPress={() => {
+          navigation.navigate("Cart");
+          cartStore.fetchCart();
+        }}
+      >
         <View
           style={{
             position: "absolute",

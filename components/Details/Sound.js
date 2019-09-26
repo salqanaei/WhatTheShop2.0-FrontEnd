@@ -31,13 +31,12 @@ export default class Sound extends React.Component {
         playThroughEarpieceAndroid: true
       });
       this.loadAudio();
-      console.log("Sound", this.props.guitar.sound);
     } catch (e) {
       console.log(e);
     }
   }
   async loadAudio() {
-    const { currentIndex, isPlaying, volume } = this.state;
+    const { isPlaying, volume } = this.state;
     try {
       const playbackInstance = new Audio.Sound();
       const source = {
@@ -50,6 +49,7 @@ export default class Sound extends React.Component {
       playbackInstance.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate);
       await playbackInstance.loadAsync(source, status, false);
       this.setState({ playbackInstance });
+      console.log("Playback", playbackInstance);
     } catch (e) {
       console.log(e);
     }
@@ -72,7 +72,11 @@ export default class Sound extends React.Component {
     return (
       <View style={styles.controls}>
         <TouchableOpacity style={styles.control} onPress={this.handlePlayPause}>
-          <Icon type="AntDesign" name="caretright" size={48} color="#444" />
+          {this.state.isPlaying ? (
+            <Icon name="pause" type="AntDesign" size={48} color="#444" />
+          ) : (
+            <Icon name="playcircleo" type="AntDesign" size={48} color="#444" />
+          )}
         </TouchableOpacity>
       </View>
     );

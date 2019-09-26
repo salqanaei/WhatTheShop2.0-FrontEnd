@@ -17,37 +17,31 @@ class CartStore {
     }
   };
 
-  cartUpdate = (newQuantity, cartItemID, incomingItem) => {
+  cartAddition = (newQuantity, cartItemID, incomingItem) => {
     const foundItem = this.items.find(item => item.id === incomingItem.id);
-
-    if (foundItem && foundItem.quantity > 0) {
+    if (foundItem) {
       foundItem.quantity = newQuantity.quantity;
-      try {
-        const res = axios.put(
-          `http://127.0.0.1:8000/cartitem/${cartItemID}/`,
-          newQuantity
-        );
-      } catch (err) {
-        console.error(err);
-      }
-    } else if (newQuantity.quantity == 0) {
-      this.cart[0].cart_items = this.cart[0].cart_items.filter(
-        item => item !== incomingItem
+    }
+  };
+  cartUpdateBE = (newQuantity, cartItemID) => {
+    try {
+      const res = axios.put(
+        `http://127.0.0.1:8000/cartitem/${cartItemID}/`,
+        newQuantity
       );
-      try {
-        const res = axios.delete(`http://127.0.0.1:8000/remove/${cartItemID}/`);
-      } catch (err) {
-        console.error(err);
-      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
   addItemToCart = async incomingItem => {
-    const foundItem = this.cart[0].cart_items.find(
+    const foundItem = this.items.find(
       item => item.product === incomingItem.product
     );
     if (foundItem) foundItem.quantity += incomingItem.quantity;
-    else this.cart[0].cart_items.push(incomingItem);
+    else this.items.push(incomingItem);
+  };
+  postItemToCart = async incomingItem => {
     try {
       const res = await axios.post(
         "http://127.0.0.1:8000/cartitem/",
@@ -59,9 +53,7 @@ class CartStore {
   };
 
   removeItemFromCart = (itemToDelete, cartItemID) => {
-    this.cart[0].cart_items = this.cart[0].cart_items.filter(
-      item => item !== itemToDelete
-    );
+    this.items = this.items.filter(item => item !== itemToDelete);
     try {
       const res = axios.delete(
         `http://127.0.0.1:8000/remove/${cartItemID}/`,
@@ -82,13 +74,25 @@ class CartStore {
     } catch (err) {
       console.error(err);
     }
+    this.FetchCartItems();
   };
 
   checkoutCart = navigation => {
+    this.products = this.items;
     this.items = [];
     navigation.replace("Review");
     try {
       const res = axios.get("http://127.0.0.1:8000/revorder/");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  placeOrder = navigation => {
+    this.products = this.items;
+    this.items = [];
+    navigation.replace("ListScreen");
+    try {
+      const res = axios.get("http://127.0.0.1:8000/checkout/");
     } catch (err) {
       console.error(err);
     }
@@ -105,18 +109,16 @@ class CartStore {
   };
   get quantity() {
     let total = 0;
-    if (this.cart.length) {
-      this.cart[0].cart_items.forEach(item => (total += item.quantity));
+    if (this.items.length) {
+      this.items.forEach(item => (total += item.quantity));
     }
     return total;
   }
 
   get subTotal() {
     let total = 0;
-    if (this.cart.length) {
-      this.cart[0].cart_items.forEach(
-        item => (total += item.quantity * item.price)
-      );
+    if (this.items.length) {
+      this.items.forEach(item => (total += item.quantity * item.price));
     }
     return total;
   }
