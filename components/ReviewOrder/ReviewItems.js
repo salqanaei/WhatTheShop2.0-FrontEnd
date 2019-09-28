@@ -1,16 +1,22 @@
 import React, { Component } from "react";
 import NumericInput from "react-native-numeric-input";
+import { ImageBackground, View } from "react-native";
 
 // NativeBase Components
 import {
   Text,
-  Left,
-  Body,
-  Right,
+  List,
   Button,
   ListItem,
-  Icon,
-  Content
+  Spinner,
+  Container,
+  Header,
+  Content,
+  Card,
+  CardItem,
+  Right,
+  Body,
+  Left
 } from "native-base";
 import cartStore from "../../stores/cartStore";
 
@@ -18,18 +24,43 @@ class ReviewItems extends Component {
   render() {
     const { review } = this.props;
     return (
-      <ListItem style={{ borderBottomWidth: 0 }}>
-        <Left>
-          <Text>{review.quantity}</Text>
-          <Text style={{ color: "black", marginLeft: 16 }}>
-            {" "}
-            {review.item}{" "}
-          </Text>
-          <Text note style={{ marginLeft: 16 }}>
-            Price: {review.price}
-          </Text>
-        </Left>
-      </ListItem>
+      <View>
+        <Card>
+          <CardItem
+            style={{
+              paddingBottom: 50,
+              width: 400
+            }}
+          >
+            <Left>
+              <Text
+                style={{
+                  bottom: -25,
+                  fontSize: 19
+                }}
+              >
+                {review.quantity}x
+              </Text>
+
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  marginLeft: 70,
+                  bottom: -25,
+                  fontSize: 19
+                }}
+              >
+                {review.item}
+              </Text>
+            </Left>
+            <Right>
+              <Text style={{ marginLeft: 40, bottom: -25, fontSize: 16 }}>
+                Price: {review.price} KD
+              </Text>
+            </Right>
+          </CardItem>
+        </Card>
+      </View>
     );
   }
 }
