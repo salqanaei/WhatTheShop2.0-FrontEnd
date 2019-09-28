@@ -7,44 +7,24 @@ import authStore from "../../stores/authStore";
 
 const CartButton = ({ navigation }) => {
   return (
-    <View>
-      <Button
-        dark
-        transparent
-        onPress={() => {
-          if (!authStore.user) {
-            navigation.navigate("Login");
-          } else {
-            navigation.navigate("Cart");
-            cartStore.fetchCart();
-          }
-        }}
-      >
-        <View
-          style={{
-            position: "absolute",
-            left: 8,
-            top: 2,
-            width: 15,
-            height: 13,
-            backgroundColor: "red",
-            borderRadius: 15
-          }}
-        >
-          <Text
-            style={{
-              color: "white",
-              textAlign: "center",
-              fontSize: 10,
-              fontWeight: "bold"
-            }}
-          >
-            {cartStore.quantity}
-          </Text>
-        </View>
-        <Icon name="shoppingcart" type="AntDesign"></Icon>
-      </Button>
-    </View>
+    <Button
+      large
+      transparent
+      badge
+      onPress={() => {
+        if (!authStore.user) {
+          navigation.navigate("Login");
+        } else {
+          navigation.navigate("Cart");
+          cartStore.fetchCart();
+        }
+      }}
+    >
+      <Badge style={{ left: 25, top: -7 }}>
+        <Text>{cartStore.quantity}</Text>
+      </Badge>
+      <Icon style={{ color: "black" }} name="shoppingcart" type="AntDesign" />
+    </Button>
   );
 };
 

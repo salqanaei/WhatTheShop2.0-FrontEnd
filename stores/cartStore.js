@@ -6,6 +6,7 @@ class CartStore {
   cart = [];
   products = [];
   loading = true;
+  address = [];
 
   FetchCartItems = async () => {
     try {
@@ -82,15 +83,27 @@ class CartStore {
     this.items = [];
     navigation.replace("Review");
     try {
-      const res = axios.get("http://127.0.0.1:8000/revorder/");
+      axios.get("http://127.0.0.1:8000/revorder/");
     } catch (err) {
       console.error(err);
     }
   };
+  returnToCart = async navigation => {
+    this.items = this.products;
+    this.products = [];
+    navigation.replace("ListScreen");
+    try {
+      await axios.get("http://127.0.0.1:8000/return/");
+    } catch (err) {
+      console.error(err);
+    }
+    this.fetchCart();
+  };
   placeOrder = navigation => {
     this.products = this.items;
     this.items = [];
-    navigation.replace("ListScreen");
+    navigation.replace("Message");
+    this.fetchCart();
     try {
       const res = axios.get("http://127.0.0.1:8000/checkout/");
     } catch (err) {
@@ -107,6 +120,16 @@ class CartStore {
       console.error(err);
     }
   };
+  fetchAddress = async () => {
+    try {
+      const res = await axios.get("http://127.0.0.1:8000/address/");
+      const address = res.data[0];
+      this.address = address;
+      this.loading = false;
+    } catch (err) {
+      console.error(err);
+    }
+  };
   get quantity() {
     let total = 0;
     if (this.items.length) {
@@ -114,7 +137,13 @@ class CartStore {
     }
     return total;
   }
-
+  get reviewQuantity() {
+    let total = 0;
+    if (this.products.length) {
+      this.products.forEach(item => (total += item.quantity));
+    }
+    return total;
+  }
   get subTotal() {
     let total = 0;
     if (this.items.length) {
