@@ -33,6 +33,7 @@ class AuthStore {
       navigation.replace("Profile");
     } catch (err) {
       console.log("something went wrong logging in");
+      alert("Invalid login credentials.");
     }
   };
 

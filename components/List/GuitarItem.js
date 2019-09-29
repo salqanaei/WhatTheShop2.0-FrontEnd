@@ -40,10 +40,10 @@ class GuitarItem extends Component {
           <Card
             style={{
               width: 400,
-              height: 360,
+              height: 270,
               borderRadius: 20,
               shadowOpacity: 500,
-              shadowColor: "black",
+              shadowColor: "grey",
               marginLeft: 7
             }}
           >
@@ -72,7 +72,7 @@ class GuitarItem extends Component {
             <CardItem cardBody>
               <Image
                 source={{ uri: guitar.image }}
-                style={{ height: 200, width: null, flex: 1 }}
+                style={{ height: 120, width: null, flex: 1 }}
                 button={true}
                 onPress={this.handlePress}
               />
