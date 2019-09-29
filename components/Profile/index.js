@@ -14,7 +14,8 @@ import {
   Header,
   Body,
   Content,
-  Container
+  Container,
+  ImageBackground
 } from "native-base";
 
 // Store
@@ -44,7 +45,7 @@ class Profile extends Component {
       cartItems = profileStore.profile[0].past_orders.map(pastOrder => (
         <Container>
           <Content padder>
-            <Card>
+            <Card style={{ shadowOpacity: 500, shadowColor: "grey" }}>
               <CardItem header bordered>
                 <Text style={{ color: "black" }}>Order ID: {pastOrder.id}</Text>
               </CardItem>
@@ -72,9 +73,13 @@ class Profile extends Component {
 
     return (
       <>
-        <Text style={{ fontWeight: "bold", fontSize: 40 }}>
-          {profileStore.profile[0].user.first_name}{" "}
-          {profileStore.profile[0].user.last_name}
+        <Text style={{ fontWeight: "bold", fontSize: 30 }}>
+          {" "}
+          Welcome {profileStore.profile[0].user.first_name}{" "}
+          {profileStore.profile[0].user.last_name}{" "}
+        </Text>
+        <Text style={{ fontWeight: "bold", fontSize: 25, paddingLeft: 120 }}>
+          Order History:
         </Text>
         {cartItems}
       </>

@@ -27,17 +27,9 @@ class GuitarList extends Component {
     ));
 
     return (
-      <ImageBackground
-        source={require("../../../WhatTheShop2.0-FrontEnd/string-store-bk.png")}
-        style={{
-          width: 500,
-          height: 800
-        }}
-      >
-        <Content>
-          <List>{guitarList}</List>
-        </Content>
-      </ImageBackground>
+      <Content>
+        <List>{guitarList}</List>
+      </Content>
     );
   }
 }

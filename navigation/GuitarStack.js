@@ -21,7 +21,7 @@ const GuitarStack = createStackNavigator(
   },
   {
     defaultNavigationOptions: {
-      title: "Ugly Cake"
+      title: "String Store"
     }
   }
 );
