@@ -26,13 +26,9 @@ import {
   Left,
   Body,
   Button,
-
   Icon,
-
   Center,
-  Icon,
   Toast
-
 } from "native-base";
 import CartButton from "../Cart/CartButton";
 
@@ -69,7 +65,7 @@ class Details extends Component {
                 marginLeft: 7,
                 borderRadius: 20,
                 shadowOpacity: 500,
-                shadowColor: "black",
+                shadowColor: "grey",
                 borderTopLeftRadius: 15,
                 borderTopRightRadius: 15
               }}
@@ -112,7 +108,7 @@ class Details extends Component {
                   marginLeft: 7,
                   borderRadius: 20,
                   shadowOpacity: 500,
-                  shadowColor: "black"
+                  shadowColor: "grey"
                 }}
               >
                 <CardItem style={{ borderRadius: 20 }}>
@@ -129,10 +125,10 @@ class Details extends Component {
                   marginLeft: 7,
                   borderRadius: 20,
                   shadowOpacity: 500,
-                  shadowColor: "black",
+                  shadowColor: "grey",
                   marginTop: 200
-              />
-           
+                }}
+              >
                 <CardItem style={{ borderRadius: 20 }}>
                   <NumericInput
                     value={this.state.value}
@@ -153,31 +149,35 @@ class Details extends Component {
                     rightButtonBackgroundColor="white"
                     leftButtonBackgroundColor="white"
                   />
-                  <CardItem>
-                       <Button
-                iconLeft
-                primary
-                onPress={() => {
-                  cartStore.postItemToCart({
-                    product: this.state.product,
-                    quantity: this.state.quantity
-                  });
-                  cartStore.addItemToCart({
-                    product: this.state.product,
-                    quantity: this.state.quantity
-                  });
-                  Toast.show({
-                    text: "Item Added",
-                    buttonText: "Okay",
-                    position: "bottom",
-                    type: "success"
-                  });
-                }}
-              >
-                      <Icon name="cart-plus" type="FontAwesome" />
-                      <Text>Add To Cart</Text>
-                    </Button>
-                  </CardItem>
+                  <Button
+                    style={{
+                      marginLeft: 70,
+                      width: 150,
+                      height: 48,
+                      borderRadius: 7
+                    }}
+                    iconLeft
+                    primary
+                    onPress={() => {
+                      cartStore.postItemToCart({
+                        product: this.state.product,
+                        quantity: this.state.quantity
+                      });
+                      cartStore.addItemToCart({
+                        product: this.state.product,
+                        quantity: this.state.quantity
+                      });
+                      Toast.show({
+                        text: "Item Added",
+                        buttonText: "Okay",
+                        position: "bottom",
+                        type: "success"
+                      });
+                    }}
+                  >
+                    <Icon name="cart-plus" type="FontAwesome" />
+                    <Text>Add To Cart</Text>
+                  </Button>
                 </CardItem>
               </Card>
             </Content>

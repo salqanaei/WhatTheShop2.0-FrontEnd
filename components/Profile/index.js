@@ -10,7 +10,11 @@ import {
   Button,
   Spinner,
   List,
-  ListItem
+  ListItem,
+  Header,
+  Body,
+  Content,
+  Container
 } from "native-base";
 
 // Store
@@ -25,6 +29,7 @@ class Profile extends Component {
       await profileStore.fetchProfile();
     }
   }
+
   render() {
     if (!authStore.user) {
       this.props.navigation.replace("Login");
@@ -32,22 +37,39 @@ class Profile extends Component {
     if (profileStore.loading) {
       return <Spinner />;
     }
+
     let cartItems;
-    console.log("PROFILE", profileStore.profile[0].past_orders);
+
     if (profileStore.profile[0].past_orders.length > 0) {
       cartItems = profileStore.profile[0].past_orders.map(pastOrder => (
-        <>
-          <Text>Order</Text>
-          <List>
-            {pastOrder.cart_items.map(item => (
-              <PastOrderItems key={item.id} pastOrderItem={item} />
-            ))}
-          </List>
-        </>
+        <Container>
+          <Content padder>
+            <Card>
+              <CardItem header bordered>
+                <Text style={{ color: "black" }}>Order ID: {pastOrder.id}</Text>
+              </CardItem>
+
+              <CardItem bordered>
+                <List>
+                  {pastOrder.cart_items.map(item => {
+                    console.log("ITEM", item);
+                    return (
+                      <PastOrderItems key={item.id} pastOrderItem={item} />
+                    );
+                  })}
+                </List>
+              </CardItem>
+              <CardItem footer bordered>
+                <Text>Subtotal: {pastOrder.subtotal}</Text>
+              </CardItem>
+            </Card>
+          </Content>
+        </Container>
       ));
     } else {
       cartItems = <Text>You have no previous orders.</Text>;
     }
+
     return (
       <>
         <Text style={{ fontWeight: "bold", fontSize: 40 }}>

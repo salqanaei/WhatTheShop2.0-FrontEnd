@@ -19,8 +19,8 @@ const BottomTab = createBottomTabNavigator(
         const { routeName } = navigation.state;
         let iconName, iconType;
         if (routeName === "GuitarTab") {
-          iconName = "guitar-pick";
-          iconType = "MaterialCommunityIcons";
+          iconName = "guitar";
+          iconType = "FontAwesome5";
         } else if (routeName === "ProfileTab") {
           iconName = "person";
           iconType = "MaterialIcons";
