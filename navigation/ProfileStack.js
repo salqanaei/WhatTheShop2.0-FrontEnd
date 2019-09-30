@@ -17,7 +17,7 @@ const ProfileStack = createStackNavigator(
   {
     initialRouteName: "Profile",
     defaultNavigationOptions: {
-      title: "WhatTheShop"
+      title: "String Store"
     }
   }
 );

@@ -108,69 +108,68 @@ class Details extends Component {
               </CardItem>
             </Card>
           </Content>
-          <Content>
-            <Card
-              style={{
-                width: 400,
-                marginLeft: 7,
-                borderRadius: 20,
-                shadowOpacity: 500,
-                shadowColor: "grey",
-                marginTop: 200
-              }}
-            >
-              <CardItem style={{ borderRadius: 20 }}>
-                <NumericInput
-                  value={this.state.value}
-                  onChange={value => {
-                    this.setState({ quantity: value });
-                  }}
-                  totalWidth={150}
-                  totalHeight={48}
-                  iconSize={15}
-                  step={1}
-                  minValue={1}
-                  initValue={1}
-                  valueType="real"
-                  rounded
-                  type="up-down"
-                  textColor="#023D7E"
-                  iconStyle={{ color: "black" }}
-                  rightButtonBackgroundColor="white"
-                  leftButtonBackgroundColor="white"
-                />
-                <Button
-                  style={{
-                    marginLeft: 70,
-                    width: 150,
-                    height: 48,
-                    borderRadius: 7
-                  }}
-                  iconLeft
-                  primary
-                  onPress={() => {
-                    cartStore.postItemToCart({
-                      product: this.state.product,
-                      quantity: this.state.quantity
-                    });
-                    cartStore.addItemToCart({
-                      product: this.state.product,
-                      quantity: this.state.quantity
-                    });
-                    Toast.show({
-                      text: "Item Added",
-                      buttonText: "Okay",
-                      position: "bottom",
-                      type: "success"
-                    });
-                  }}
-                >
-                  <Icon name="cart-plus" type="FontAwesome" />
-                  <Text>Add To Cart</Text>
-                </Button>
-              </CardItem>
-            </Card>
-          </Content>
+
+          <Card
+            style={{
+              width: 400,
+              marginLeft: 7,
+              borderRadius: 20,
+              shadowOpacity: 500,
+              shadowColor: "grey",
+              marginTop: 150
+            }}
+          >
+            <CardItem style={{ borderRadius: 20 }}>
+              <NumericInput
+                value={this.state.value}
+                onChange={value => {
+                  this.setState({ quantity: value });
+                }}
+                totalWidth={150}
+                totalHeight={48}
+                iconSize={15}
+                step={1}
+                minValue={1}
+                initValue={1}
+                valueType="real"
+                rounded
+                type="up-down"
+                textColor="#023D7E"
+                iconStyle={{ color: "black" }}
+                rightButtonBackgroundColor="white"
+                leftButtonBackgroundColor="white"
+              />
+              <Button
+                style={{
+                  marginLeft: 70,
+                  width: 150,
+                  height: 48,
+                  borderRadius: 7
+                }}
+                iconLeft
+                primary
+                onPress={() => {
+                  cartStore.postItemToCart({
+                    product: this.state.product,
+                    quantity: this.state.quantity
+                  });
+                  cartStore.addItemToCart({
+                    product: this.state.product,
+                    quantity: this.state.quantity
+                  });
+                  Toast.show({
+                    text: "Item Added",
+                    buttonText: "Okay",
+                    position: "bottom",
+                    type: "success"
+                  });
+                }}
+              >
+                <Icon name="cart-plus" type="FontAwesome" />
+                <Text>Add To Cart</Text>
+              </Button>
+            </CardItem>
+          </Card>
         </Content>
       </Container>
     );
